@@ -20,8 +20,8 @@ public class User {
     @NonNull
     private String name;
     private int age;
-    @NonNull
     private LocalDateTime  dateOfEmployment;
+    @NonNull
     private String position;
 
     private Set<GroupEntity> groups = new HashSet<>();
@@ -45,7 +45,9 @@ public class User {
         userEntity.setId(this.id);
         userEntity.setName(this.name);
         userEntity.setAge(this.age);
-        userEntity.setDateOfEmployment(this.dateOfEmployment);
+        if(this.getDateOfEmployment() != null ) {
+            userEntity.setDateOfEmployment(this.dateOfEmployment);
+        }
 
         return userEntity;
     }

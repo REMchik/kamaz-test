@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +27,6 @@ public class UserEntity implements Serializable{
     @Column(name = "username")
     private String name;
     private int age;
-    @NonNull
     private LocalDateTime  dateOfEmployment = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,7 +39,7 @@ public class UserEntity implements Serializable{
             orphanRemoval = true
     )
     @JsonIgnore
-    private List<TaskEntity> taskList;
+    private List<TaskEntity> taskList = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

@@ -6,6 +6,7 @@ import com.example.kamaz.demo.model.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -18,10 +19,13 @@ import java.util.Set;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto implements Serializable{
+
     private int id;
+    @NonNull
     private String name;
     private int age;
     private LocalDateTime  dateOfEmployment;
+    @NonNull
     private String position;
 
     private Set<GroupEntity> groups  = new HashSet<>();

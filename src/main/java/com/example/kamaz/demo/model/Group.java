@@ -17,7 +17,6 @@ public class Group {
     private int id;
     @NonNull
     private String title;
-    @NonNull
     private LocalDateTime  dateOfEmployment;
 
     Set<UserEntity> users;
@@ -36,7 +35,9 @@ public class Group {
         GroupEntity groupEntity = new GroupEntity();
         groupEntity.setId(this.id);
         groupEntity.setTitle(this.title);
-        groupEntity.setDateOfEmployment(this.dateOfEmployment);
+        if (this.getDateOfEmployment() != null) {
+            groupEntity.setDateOfEmployment(this.dateOfEmployment);
+        }
 
         return groupEntity;
     }

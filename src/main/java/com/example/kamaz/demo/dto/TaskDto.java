@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TaskDto implements Serializable {
 
+    @NonNull
     private String title;
     private LocalDateTime createDate;
 

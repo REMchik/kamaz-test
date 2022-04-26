@@ -18,9 +18,8 @@ public class TaskEntity {
     private int id;
     @NonNull
     private String title;
-    @NonNull
     @Column(name = "date_create")
-    private LocalDateTime createDate;
+    private LocalDateTime createDate = LocalDateTime.now();;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private UserEntity user;

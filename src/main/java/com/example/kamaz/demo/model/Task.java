@@ -16,7 +16,6 @@ public class Task {
     private int id;
     @NonNull
     private String title;
-    @NonNull
     private LocalDateTime createDate;
     private int userId;
 
@@ -31,8 +30,10 @@ public class Task {
     public TaskEntity toEntity(UserEntity userEntity) {
         TaskEntity taskEntity = new TaskEntity();
         taskEntity.setTitle(this.title);
-        taskEntity.setCreateDate(this.createDate);
         taskEntity.setUser(userEntity);
+        if (this.getCreateDate() != null) {
+            taskEntity.setCreateDate(this.createDate);
+        }
 
         return taskEntity;
     }

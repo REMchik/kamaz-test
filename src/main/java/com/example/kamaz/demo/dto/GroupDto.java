@@ -5,6 +5,7 @@ import com.example.kamaz.demo.model.Group;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GroupDto implements Serializable {
     private int id;
+    @NonNull
     private String title;
     private LocalDateTime  dateOfEmployment;
 
