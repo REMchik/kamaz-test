@@ -1,6 +1,7 @@
 package com.example.kamaz.demo.entity;
 
 import com.example.kamaz.demo.model.Group;
+import com.example.kamaz.demo.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NonNull;
@@ -36,9 +37,8 @@ public class GroupEntity implements Serializable{
         group.setId(this.id);
         group.setTitle(this.title);
         group.setDateOfEmployment(this.dateOfEmployment);
-        group.setUsers(this.users);
         group.setUsers(this.users.stream().map(userEntity -> {
-            UserEntity filedUser = new UserEntity();
+            User filedUser = new User();
             filedUser.setId(userEntity.getId());
             filedUser.setName(userEntity.getName());
             filedUser.setAge(userEntity.getAge());

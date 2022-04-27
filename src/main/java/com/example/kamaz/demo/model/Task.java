@@ -3,14 +3,12 @@ package com.example.kamaz.demo.model;
 import com.example.kamaz.demo.dto.TaskDto;
 import com.example.kamaz.demo.entity.TaskEntity;
 import com.example.kamaz.demo.entity.UserEntity;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class Task {
 
     private int id;

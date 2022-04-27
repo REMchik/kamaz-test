@@ -2,6 +2,7 @@ package com.example.kamaz.demo.dto;
 
 import com.example.kamaz.demo.entity.GroupEntity;
 import com.example.kamaz.demo.entity.TaskEntity;
+import com.example.kamaz.demo.model.Group;
 import com.example.kamaz.demo.model.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -28,9 +30,9 @@ public class UserDto implements Serializable{
     @NonNull
     private String position;
 
-    private Set<GroupEntity> groups  = new HashSet<>();
+    private Set<GroupDto> groups  = new HashSet<>();
 
-    private List<TaskEntity> tasks = new ArrayList<>();
+    private List<TaskDto> tasks = new ArrayList<>();
 
     public User toModel() {
         User user = new User();
@@ -39,7 +41,13 @@ public class UserDto implements Serializable{
         user.setAge(this.age);
         user.setDateOfEmployment(this.dateOfEmployment);
         user.setPosition(this.position);
-        user.setGroups(this.groups);
+        user.setGroups(this.groups.stream().map( groupDto -> {
+            Group group = new Group();
+            group.setId(groupDto.getId());
+            group.setTitle(groupDto.getTitle());
+            group.setDateOfEmployment(groupDto.getDateOfEmployment());
+            return group;
+                }).collect(Collectors.toSet()));
 
         return user;
     }

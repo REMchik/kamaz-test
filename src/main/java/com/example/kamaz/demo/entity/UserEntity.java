@@ -1,5 +1,7 @@
 package com.example.kamaz.demo.entity;
 
+import com.example.kamaz.demo.model.Group;
+import com.example.kamaz.demo.model.Task;
 import com.example.kamaz.demo.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -9,10 +11,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -55,10 +55,36 @@ public class UserEntity implements Serializable{
         user.setAge(this.age);
         user.setDateOfEmployment(this.dateOfEmployment);
         user.setPosition(this.position.getTitle());
-        user.setGroups(this.getGroups());
-        user.setTasks(this.taskList);
+        user.setGroups(this.groups.stream().map(groupEntity -> {
+            Group filedGroup = new Group();
+            filedGroup.setId(groupEntity.getId());
+            filedGroup.setTitle(groupEntity.getTitle());
+            filedGroup.setDateOfEmployment(groupEntity.getDateOfEmployment());
+            return filedGroup;
+        }).collect(Collectors.toSet()));
+        user.setTasks(this.taskList.stream().map(taskEntity -> {
+            Task task = new Task();
+            task.setId(taskEntity.getId());
+            task.setUserId(taskEntity.getUser().getId());
+            task.setTitle(taskEntity.getTitle());
+            task.setCreateDate(taskEntity.getCreateDate());
+            return task;
+                }).collect(Collectors.toList()));
 
         return user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserEntity)) return false;
+        UserEntity that = (UserEntity) o;
+        return getId() == that.getId() && getAge() == that.getAge() && getName().equals(that.getName()) && Objects.equals(getDateOfEmployment(), that.getDateOfEmployment()) && getPosition().equals(that.getPosition()) && Objects.equals(getTaskList(), that.getTaskList()) && Objects.equals(getGroups(), that.getGroups());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getAge(), getDateOfEmployment(), getPosition(), getTaskList(), getGroups());
     }
 }
 

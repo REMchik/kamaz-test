@@ -1,6 +1,5 @@
 package com.example.kamaz.demo.dto;
 
-import com.example.kamaz.demo.entity.UserEntity;
 import com.example.kamaz.demo.model.Group;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -21,7 +20,7 @@ public class GroupDto implements Serializable {
     private String title;
     private LocalDateTime  dateOfEmployment;
 
-    Set<UserEntity> users = new HashSet<>();
+    Set<UserDto> users = new HashSet<>();
 
     public Group toModel() {
         Group group = new Group();

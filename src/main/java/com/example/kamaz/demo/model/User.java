@@ -1,5 +1,7 @@
 package com.example.kamaz.demo.model;
 
+import com.example.kamaz.demo.dto.GroupDto;
+import com.example.kamaz.demo.dto.TaskDto;
 import com.example.kamaz.demo.dto.UserDto;
 import com.example.kamaz.demo.entity.GroupEntity;
 import com.example.kamaz.demo.entity.TaskEntity;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -24,9 +27,9 @@ public class User {
     @NonNull
     private String position;
 
-    private Set<GroupEntity> groups = new HashSet<>();
+    private Set<Group> groups = new HashSet<>();
 
-    private List<TaskEntity> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
     public UserDto toDto() {
         UserDto userDto = new UserDto();
         userDto.setId(this.id);
@@ -34,8 +37,19 @@ public class User {
         userDto.setAge(this.age);
         userDto.setDateOfEmployment(this.dateOfEmployment);
         userDto.setPosition(this.position);
-        userDto.setGroups(this.groups);
-        userDto.setTasks(this.tasks);
+        userDto.setGroups(this.groups.stream().map(group -> {
+            GroupDto filedGroupDto = new GroupDto();
+            filedGroupDto.setId(group.getId());
+            filedGroupDto.setTitle(group.getTitle());
+            filedGroupDto.setDateOfEmployment(group.getDateOfEmployment());
+            return filedGroupDto;
+        }).collect(Collectors.toSet()));
+        userDto.setTasks(this.tasks.stream().map(task -> {
+            TaskDto taskDto = new TaskDto();
+            taskDto.setTitle(task.getTitle());
+            taskDto.setCreateDate(task.getCreateDate());
+            return taskDto;
+        }).collect(Collectors.toList()));
 
         return userDto;
     }

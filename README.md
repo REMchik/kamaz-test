@@ -27,14 +27,14 @@ sudo snap install postman
 sudo apt install maven
 ```
 
-## Commands to build app:
+## Command to build app:
 ```bash
 mvn clean install
 ```
 
 ## Command to run app:
 ```bash
-java -jar ./target/kamaz-demo-1.0.0-SNAPSHOT.jar
+java -jar ./target/kamaz-demo-1.0.0.jar
 ```
 ## Test curls:
 ### Группа:
@@ -79,7 +79,7 @@ curl --location --request PATCH 'localhost:8080/kamaz/user' \
     }'
 ```
 Удаление пользователя:
-<br>В качестве PathVariable в конце ссылки укзываем id пользователя, в данном примере userId == 1
+<br>В качестве PathVariable в конце ссылки указываем id пользователя, в данном примере userId == 1
 ```bash
 curl --location --request DELETE 'localhost:8080/kamaz/user/1'
 ```
@@ -93,7 +93,7 @@ curl --location --request POST 'localhost:8080/kamaz/task?userId=42' \
 "title": "Work!"
 }'
 ```
-Получение списка задача:
+Получение списка задач:
 userId - необходимо указать id пользователя по которому будет предоставлен список работ
 ```bash
 curl --location --request GET 'localhost:8080/kamaz/task?userId=42'
@@ -114,7 +114,7 @@ curl --location --request POST 'localhost:8080/kamaz/group' \
 Добавление пользователя в группу:
 <br>В качестве PathVariable в ссылке указываем id группы в которую добавляем пользователя и id пользователя, в данном примере groupId == 7, userId == 42
 ```bash
-curl --location --request PATCH 'localhost:8080/kamaz/group/8/user/42'
+curl --location --request PATCH 'localhost:8080/kamaz/group/7/user/42'
 ```
 Удаление группы:
 <br>В качестве PathVariable в конце ссылки указываем id группы, в данном примере groupId == 7

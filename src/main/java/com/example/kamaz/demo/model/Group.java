@@ -1,14 +1,15 @@
 package com.example.kamaz.demo.model;
 
 import com.example.kamaz.demo.dto.GroupDto;
+import com.example.kamaz.demo.dto.UserDto;
 import com.example.kamaz.demo.entity.GroupEntity;
-import com.example.kamaz.demo.entity.UserEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -19,14 +20,21 @@ public class Group {
     private String title;
     private LocalDateTime  dateOfEmployment;
 
-    Set<UserEntity> users;
+    Set<User> users;
 
     public GroupDto toDto() {
         GroupDto groupDto = new GroupDto();
         groupDto.setId(this.id);
         groupDto.setTitle(this.title);
         groupDto.setDateOfEmployment(this.dateOfEmployment);
-        groupDto.setUsers(this.users);
+        groupDto.setUsers(this.users.stream().map(user -> {
+            UserDto filedUser = new UserDto();
+            filedUser.setId(user.getId());
+            filedUser.setName(user.getName());
+            filedUser.setAge(user.getAge());
+            filedUser.setDateOfEmployment(user.getDateOfEmployment());
+            return filedUser;
+        }).collect(Collectors.toSet()));
 
         return groupDto;
     }

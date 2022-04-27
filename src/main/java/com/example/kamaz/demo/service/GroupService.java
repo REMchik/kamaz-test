@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,7 +37,8 @@ public class GroupService {
     public void addUser(int groupId, int userId) {
         final UserEntity userEntity = userRepository.getById(userId);
         final GroupEntity groupEntity = groupRepository.getById(groupId);
-        final Set<GroupEntity> filledGroups = userEntity.getGroups();
+        final Set<GroupEntity> filledGroups = new HashSet<>();
+        filledGroups.addAll(userEntity.getGroups());
         final UserEntity filledEntity = new UserEntity();
 
         filledGroups.add(groupEntity);

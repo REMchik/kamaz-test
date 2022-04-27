@@ -3,6 +3,7 @@ package com.example.kamaz.demo.service;
 import com.example.kamaz.demo.entity.GroupEntity;
 import com.example.kamaz.demo.entity.PositionEntity;
 import com.example.kamaz.demo.entity.UserEntity;
+import com.example.kamaz.demo.model.Group;
 import com.example.kamaz.demo.model.User;
 import com.example.kamaz.demo.repository.GroupRepository;
 import com.example.kamaz.demo.repository.PositionRepository;
@@ -14,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 
 @Service
 @RequiredArgsConstructor
@@ -53,7 +53,7 @@ public class UserService {
         final UserEntity userEntity = user.toEntity();
         userEntity.setPosition(positionEntity);
 
-        final List<Integer> groupsId = user.getGroups().stream().map(GroupEntity::getId).collect(Collectors.toList());
+        final List<Integer> groupsId = user.getGroups().stream().map(Group::getId).collect(Collectors.toList());
         final Set<GroupEntity> groupsEntity = Set.copyOf(groupRepository.findAllByIds(groupsId));
         userEntity.setGroups(groupsEntity);
 
